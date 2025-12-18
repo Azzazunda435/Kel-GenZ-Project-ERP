@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Analisis Bisnis - 7 Metode</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-calculator"></i>
+                    <h1>Kalkulator Analisis Bisnis</h1>
+                </div>
+                <p class="subtitle">7 Metode Perhitungan Bisnis Profesional</p>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="nav-tabs">
+                <li class="nav-item active" data-tab="bom">
+                    <i class="fas fa-boxes"></i>
+                    <span>BOM</span>
+                </li>
+                <li class="nav-item" data-tab="forecasting">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Forecasting</span>
+                </li>
+                <li class="nav-item" data-tab="jsm">
+                    <i class="fas fa-tasks"></i>
+                    <span>JSM</span>
+                </li>
+                <li class="nav-item" data-tab="saw">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>SAW</span>
+                </li>
+                <li class="nav-item" data-tab="market-basket">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span>Market Basket</span>
+                </li>
+                <li class="nav-item" data-tab="profile-matching">
+                    <i class="fas fa-user-check"></i>
+                    <span>Profile Matching</span>
+                </li>
+                <li class="nav-item" data-tab="markov">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Markov Chain</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- BOM Section -->
+        <section id="bom" class="method-section active">
+            <div class="method-header">
+                <h2><i class="fas fa-boxes"></i> Bill of Material (BOM)</h2>
+                <p>Perhitungan biaya produksi dengan struktur hierarkis komponen</p>
+            </div>
+
+            <div class="theory-box">
+                <h3><i class="fas fa-book"></i> 1. Konsep dan Rumus Dasar BOM</h3>
+                <p>Bill of Material (BOM) adalah daftar seluruh komponen yang dibutuhkan untuk membuat satu produk, lengkap dengan jumlah dan biaya.</p>
+                <div class="formula">
+                    <p><strong>Rumus umum biaya BOM:</strong></p>
+                    <p>Biaya Komponen = Jumlah Komponen × Harga Satuan</p>
+                    <p>Total Biaya Produk = Σ (Biaya seluruh komponen)</p>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <h3><i class="fas fa-edit"></i> Input Data Produk</h3>
+                <div class="form-group">
+                    <label>Nama Produk:</label>
+                    <input type="text" id="bom-product-name" placeholder="Contoh: Laptop" value="Laptop">
+                </div>
+                <div class="form-group">
+                    <label>Jumlah Produk yang Akan Diproduksi:</label>
+                    <input type="number" id="bom-quantity" placeholder="Contoh: 7" value="7" min="1">
+                </div>
+
+                <h4>Komponen Utama dan Sub-komponen</h4>
+                <div id="bom-components">
+                    <!-- Dynamic components will be added here -->
+                </div>
+                
+                <button class="btn btn-secondary" onclick="addBOMComponent()">
+                    <i class="fas fa-plus"></i> Tambah Komponen Utama
+                </button>
+                
+                <button class="btn btn-primary" onclick="calculateBOM()">
+                    <i class="fas fa-calculator"></i> Hitung BOM
+                </button>
+            </div>
+
+            <div id="bom-result" class="result-section" style="display:none;">
+                <h3><i class="fas fa-chart-bar"></i> Hasil Perhitungan BOM</h3>
+                <div id="bom-calculation-steps"></div>
+                <div id="bom-summary"></div>
+            </div>
+        </section>
+
+        <!-- Forecasting Section -->
+        <section id="forecasting" class="method-section">
+            <div class="method-header">
+                <h2><i class="fas fa-chart-line"></i> Forecasting - Trend Linear</h2>
+                <p>Prediksi permintaan menggunakan metode Least Square</p>
+            </div>
+
+            <div class="theory-box">
+                <h3><i class="fas fa-book"></i> 1. Konsep dan Rumus Dasar Forecasting Trend Linear</h3>
+                <p>Forecasting Trend Linear menggunakan metode kuadrat terkecil (least square) untuk memprediksi nilai di masa depan berdasarkan data historis.</p>
+                <div class="formula">
+                    <p><strong>Persamaan Trend Linear:</strong></p>
+                    <p>Y = a + bX</p>
+                    <p>Dimana:</p>
+                    <ul>
+                        <li>Y = Nilai prediksi</li>
+                        <li>X = Periode waktu</li>
+                        <li>a = Intersep (konstanta)</li>
+                        <li>b = Slope (koefisien kemiringan)</li>
+                    </ul>
+                    <p><strong>Rumus perhitungan:</strong></p>
+                    <p>b = (n∑XY - ∑X∑Y) / (n∑X² - (∑X)²)</p>
+                    <p>a = (∑Y - b∑X) / n</p>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <h3><i class="fas fa-edit"></i> Input Data Historis</h3>
+                <div class="form-group">
+                    <label>Nama Data (Contoh: Penjualan, Permintaan):</label>
+                    <input type="text" id="forecast-data-name" placeholder="Contoh: Penjualan" value="Penjualan">
+                </div>
+                
+                <h4>Data Periode</h4>
+                <div id="forecast-data">
+                    <!-- Dynamic data rows will be added here -->
+                </div>
+                
+                <button class="btn btn-secondary" onclick="addForecastData()">
+                    <i class="fas fa-plus"></i> Tambah Data Periode
+                </button>
+                
+                <div class="form-group">
+                    <label>Prediksi untuk Periode ke:</label>
+                    <input type="number" id="forecast-period" placeholder="Contoh: 11" value="11" min="1">
+                </div>
+                
+                <button class="btn btn-primary" onclick="calculateForecasting()">
+                    <i class="fas fa-calculator"></i> Hitung Forecasting
+                </button>
+            </div>
+
+            <div id="forecast-result" class="result-section" style="display:none;">
+                <h3><i class="fas fa-chart-bar"></i> Hasil Perhitungan Forecasting</h3>
+                <div id="forecast-calculation-steps"></div>
+                <div class="chart-container" style="height: 400px;">
+                    <canvas id="forecast-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- JSM Section -->
+        <section id="jsm" class="method-section">
+            <div class="method-header">
+                <h2><i class="fas fa-tasks"></i> Job Sequencing Method (JSM)</h2>
+                <p>Penjadwalan optimal untuk 2 mesin dengan aturan Johnson</p>
+            </div>
+
+            <div class="theory-box">
+                <h3><i class="fas fa-book"></i> 1. Konsep dan Rumus Dasar JSM</h3>
+                <p>Job Sequencing Method menggunakan algoritma Johnson untuk menentukan urutan optimal pekerjaan pada dua mesin untuk meminimalkan makespan (total waktu penyelesaian).</p>
+                <div class="formula">
+                    <p><strong>Aturan Johnson:</strong></p>
+                    <ol>
+                        <li>Cari waktu proses terkecil dari semua job di kedua mesin</li>
+                        <li>Jika waktu terkecil di Mesin 1, tempatkan job di awal urutan</li>
+                        <li>Jika waktu terkecil di Mesin 2, tempatkan job di akhir urutan</li>
+                        <li>Hapus job yang sudah dijadwalkan dan ulangi hingga semua job terjadwal</li>
+                    </ol>
+                    <p><strong>Perhitungan:</strong></p>
+                    <ul>
+                        <li>Makespan = Total waktu penyelesaian semua job</li>
+                        <li>Idle Time = Waktu menganggur mesin</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <h3><i class="fas fa-edit"></i> Input Data Pekerjaan</h3>
+                
+                <h4>Waktu Proses Job pada Mesin 1 dan Mesin 2</h4>
+                <div id="jsm-jobs">
+                    <!-- Dynamic job rows will be added here -->
+                </div>
+                
+                <button class="btn btn-secondary" onclick="addJSMJob()">
+                    <i class="fas fa-plus"></i> Tambah Job
+                </button>
+                
+                <button class="btn btn-primary" onclick="calculateJSM()">
+                    <i class="fas fa-calculator"></i> Hitung JSM
+                </button>
+            </div>
+
+            <div id="jsm-result" class="result-section" style="display:none;">
+                <h3><i class="fas fa-chart-bar"></i> Hasil Perhitungan JSM</h3>
+                <div id="jsm-calculation-steps"></div>
+            </div>
+        </section>
+
+        <!-- SAW Section -->
+        <section id="saw" class="method-section">
+            <div class="method-header">
+                <h2><i class="fas fa-balance-scale"></i> Simple Additive Weighting (SAW)</h2>
+                <p>Metode pengambilan keputusan multi-kriteria dengan pembobotan</p>
+            </div>
+
+            <div class="theory-box">
+                <h3><i class="fas fa-book"></i> 1. Konsep dan Rumus Dasar SAW</h3>
+                <p>SAW adalah metode MCDM (Multi-Criteria Decision Making) yang menghitung skor preferensi alternatif berdasarkan normalisasi nilai dan bobot kriteria.</p>
+                <div class="formula">
+                    <p><strong>Normalisasi:</strong></p>
+                    <p>Benefit: rij = xij / max(xij)</p>
+                    <p>Cost: rij = min(xij) / xij</p>
+                    <p><strong>Skor Preferensi:</strong></p>
+                    <p>Vi = Σ (wj × rij)</p>
+                    <p>Dimana:</p>
+                    <ul>
+                        <li>Vi = Skor preferensi alternatif ke-i</li>
+                        <li>wj = Bobot kriteria ke-j</li>
+                        <li>rij = Nilai normalisasi</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <h3><i class="fas fa-edit"></i> Input Data Kriteria dan Alternatif</h3>
+                
+                <h4>Kriteria</h4>
+                <div id="saw-criteria">
+                    <!-- Dynamic criteria will be added here -->
+                </div>
+                <button class="btn btn-secondary" onclick="addSAWCriterion()">
+                    <i class="fas fa-plus"></i> Tambah Kriteria
+                </button>
+
+                <h4>Alternatif</h4>
+                <div id="saw-alternatives">
+                    <!-- Dynamic alternatives will be added here -->
+                </div>
+                <button class="btn btn-secondary" onclick="addSAWAlternative()">
+                    <i class="fas fa-plus"></i> Tambah Alternatif
+                </button>
+                
+                <button class="btn btn-primary" onclick="calculateSAW()">
+                    <i class="fas fa-calculator"></i> Hitung SAW
+                </button>
+            </div>
+
+            <div id="saw-result" class="result-section" style="display:none;">
+                <h3><i class="fas fa-chart-bar"></i> Hasil Perhitungan SAW</h3>
+                <div id="saw-calculation-steps"></div>
+            </div>
+        </section>
+
+        <!-- Market Basket Section -->
+        <section id="market-basket" class="method-section">
+            <div class="method-header">
+                <h2><i class="fas fa-shopping-basket"></i> Market Basket Analysis</h2>
+                <p>Analisis asosiasi untuk menemukan pola pembelian produk</p>
+            </div>
+
+            <div class="theory-box">
+                <h3><i class="fas fa-book"></i> 1. Konsep dan Rumus Dasar Market Basket</h3>
+                <p>Market Basket Analysis menggunakan aturan asosiasi untuk menemukan pola "jika membeli X maka membeli Y".</p>
+                <div class="formula">
+                    <p><strong>Metrik Utama:</strong></p>
+                    <p><strong>Support:</strong> Frekuensi kemunculan itemset dalam transaksi</p>
+                    <p>Support(A) = Transaksi mengandung A / Total Transaksi</p>
+                    <p>Support(A,B) = Transaksi mengandung A dan B / Total Transaksi</p>
+                    
+                    <p><strong>Confidence:</strong> Probabilitas membeli B jika membeli A</p>
+                    <p>Confidence(A→B) = Support(A,B) / Support(A)</p>
+                    
+                    <p><strong>Lift Ratio:</strong> Kekuatan asosiasi</p>
+                    <p>Lift(A→B) = Confidence(A→B) / Support(B)</p>
+                    <ul>
+                        <li>Lift > 1: Asosiasi positif (saling mendorong)</li>
+                        <li>Lift = 1: Independen</li>
+                        <li>Lift < 1: Asosiasi negatif</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <h3><i class="fas fa-edit"></i> Input Data Transaksi</h3>
+                
+                <h4>Transaksi Pembelian</h4>
+                <p class="help-text">Masukkan item yang dibeli dalam setiap transaksi (pisahkan dengan koma)</p>
+                <div id="mba-transactions">
+                    <!-- Dynamic transaction rows will be added here -->
+                </div>
+                
+                <button class="btn btn-secondary" onclick="addMBATransaction()">
+                    <i class="fas fa-plus"></i> Tambah Transaksi
+                </button>
+                
+                <div class="form-group">
+                    <label>Minimum Support (%):</label>
+                    <input type="number" id="mba-min-support" placeholder="Contoh: 30" value="30" min="0" max="100" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label>Minimum Confidence (%):</label>
+                    <input type="number" id="mba-min-confidence" placeholder="Contoh: 50" value="50" min="0" max="100" step="1">
+                </div>
+                
+                <button class="btn btn-primary" onclick="calculateMBA()">
+                    <i class="fas fa-calculator"></i> Hitung Market Basket
+                </button>
+            </div>
+
+            <div id="mba-result" class="result-section" style="display:none;">
+                <h3><i class="fas fa-chart-bar"></i> Hasil Perhitungan Market Basket</h3>
+                <div id="mba-calculation-steps"></div>
+            </div>
+        </section>
+
+        <!-- Profile Matching Section -->
+        <section id="profile-matching" class="method-section">
+            <div class="method-header">
+                <h2><i class="fas fa-user-check"></i> Profile Matching</h2>
+                <p>Evaluasi kandidat dengan analisis gap terhadap profil ideal</p>
+            </div>
+
+            <div class="theory-box">
+                <h3><i class="fas fa-book"></i> 1. Konsep dan Rumus Dasar Profile Matching</h3>
+                <p>Profile Matching membandingkan profil kandidat dengan profil ideal menggunakan Gap Analysis dan pembobotan Core Factor & Secondary Factor.</p>
+                <div class="formula">
+                    <p><strong>Tahapan Perhitungan:</strong></p>
+                    <ol>
+                        <li><strong>GAP:</strong> GAP = Nilai Kandidat - Nilai Ideal</li>
+                        <li><strong>Bobot Nilai:</strong> Konversi GAP ke bobot berdasarkan tabel
+                            <table class="mini-table">
+                                <tr><th>Selisih</th><th>Bobot</th><th>Keterangan</th></tr>
+                                <tr><td>0</td><td>5</td><td>Kompetensi sesuai</td></tr>
+                                <tr><td>1</td><td>4.5</td><td>Kompetensi lebih 1</td></tr>
+                                <tr><td>-1</td><td>4</td><td>Kompetensi kurang 1</td></tr>
+                                <tr><td>2</td><td>3.5</td><td>Kompetensi lebih 2</td></tr>
+                                <tr><td>-2</td><td>3</td><td>Kompetensi kurang 2</td></tr>
+                                <tr><td>3</td><td>2.5</td><td>Kompetensi lebih 3</td></tr>
+                                <tr><td>-3</td><td>2</td><td>Kompetensi kurang 3</td></tr>
+                                <tr><td>≥4 atau ≤-4</td><td>1</td><td>Kompetensi sangat tidak sesuai</td></tr>
+                            </table>
+                        </li>
+                        <li><strong>Core Factor (CF):</strong> NCF = Σ Bobot CF / Σ Item CF</li>
+                        <li><strong>Secondary Factor (SF):</strong> NSF = Σ Bobot SF / Σ Item SF</li>
+                        <li><strong>Nilai Total:</strong> N = 60% × NCF + 40% × NSF</li>
+                        <li><strong>Ranking:</strong> Urutkan berdasarkan Nilai Total tertinggi</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <h3><i class="fas fa-edit"></i> Input Data Profile Matching</h3>
+                
+                <h4>Aspek Penilaian</h4>
+                <div id="pm-aspects">
+                    <!-- Dynamic aspects will be added here -->
+                </div>
+                <button class="btn btn-secondary" onclick="addPMAspect()">
+                    <i class="fas fa-plus"></i> Tambah Aspek
+                </button>
+
+                <h4>Kandidat</h4>
+                <div id="pm-candidates">
+                    <!-- Dynamic candidates will be added here -->
+                </div>
+                <button class="btn btn-secondary" onclick="addPMCandidate()">
+                    <i class="fas fa-plus"></i> Tambah Kandidat
+                </button>
+                
+                <button class="btn btn-primary" onclick="calculatePM()">
+                    <i class="fas fa-calculator"></i> Hitung Profile Matching
+                </button>
+            </div>
+
+            <div id="pm-result" class="result-section" style="display:none;">
+                <h3><i class="fas fa-chart-bar"></i> Hasil Perhitungan Profile Matching</h3>
+                <div id="pm-calculation-steps"></div>
+            </div>
+        </section>
+
+        <!-- Markov Chain Section -->
+        <section id="markov" class="method-section">
+            <div class="method-header">
+                <h2><i class="fas fa-project-diagram"></i> Markov Chain</h2>
+                <p>Analisis probabilitas transisi antar state untuk prediksi masa depan</p>
+            </div>
+
+            <div class="theory-box">
+                <h3><i class="fas fa-book"></i> 1. Konsep dan Rumus Dasar Markov Chain</h3>
+                <p>Markov Chain adalah model stokastik yang menggambarkan transisi antar state dengan probabilitas tertentu, dimana state masa depan hanya bergantung pada state saat ini.</p>
+                <div class="formula">
+                    <p><strong>Konsep Utama:</strong></p>
+                    <ul>
+                        <li><strong>State:</strong> Kondisi atau situasi yang mungkin terjadi</li>
+                        <li><strong>Transition Probability (Pij):</strong> Probabilitas berpindah dari state i ke state j</li>
+                        <li><strong>Transition Matrix (P):</strong> Matriks berisi semua probabilitas transisi</li>
+                    </ul>
+                    <p><strong>Properti:</strong></p>
+                    <ul>
+                        <li>Σ Pij = 1 untuk setiap baris (total probabilitas keluar = 1)</li>
+                        <li>0 ≤ Pij ≤ 1 (probabilitas antara 0 dan 1)</li>
+                    </ul>
+                    <p><strong>Prediksi State Masa Depan:</strong></p>
+                    <p>π(n) = π(0) × P^n</p>
+                    <p>Dimana:</p>
+                    <ul>
+                        <li>π(n) = Distribusi probabilitas pada periode n</li>
+                        <li>π(0) = Distribusi probabilitas awal</li>
+                        <li>P^n = Matriks transisi pangkat n</li>
+                    </ul>
+                    <p><strong>Steady State:</strong> Kondisi keseimbangan jangka panjang dimana π = π × P</p>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <h3><i class="fas fa-edit"></i> Input Data Markov Chain</h3>
+                
+                <div class="form-group">
+                    <label>Nama State (pisahkan dengan koma):</label>
+                    <input type="text" id="markov-states" placeholder="Contoh: Loyal, Switch, Lost" value="Loyal, Switch, Lost">
+                </div>
+
+                <h4>Matriks Probabilitas Transisi</h4>
+                <p class="help-text">Masukkan probabilitas transisi dari state baris ke state kolom (total setiap baris harus = 1)</p>
+                <div id="markov-matrix">
+                    <!-- Dynamic matrix will be added here -->
+                </div>
+
+                <button class="btn btn-secondary" onclick="generateMarkovMatrix()">
+                    <i class="fas fa-sync"></i> Generate Matriks
+                </button>
+
+                <h4>State Awal</h4>
+                <div id="markov-initial">
+                    <!-- Dynamic initial state will be added here -->
+                </div>
+
+                <div class="form-group">
+                    <label>Prediksi untuk Periode ke:</label>
+                    <input type="number" id="markov-periods" placeholder="Contoh: 5" value="5" min="1" max="20">
+                </div>
+                
+                <button class="btn btn-primary" onclick="calculateMarkov()">
+                    <i class="fas fa-calculator"></i> Hitung Markov Chain
+                </button>
+            </div>
+
+            <div id="markov-result" class="result-section" style="display:none;">
+                <h3><i class="fas fa-chart-bar"></i> Hasil Perhitungan Markov Chain</h3>
+                <div id="markov-calculation-steps"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Kalkulator Analisis Bisnis. Semua metode perhitungan dirancang untuk membantu pengambilan keputusan bisnis.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/bom.js"></script>
+    <script src="js/forecasting.js"></script>
+    <script src="js/jsm.js"></script>
+    <script src="js/saw.js"></script>
+    <script src="js/market-basket.js"></script>
+    <script src="js/profile-matching.js"></script>
+    <script src="js/markov.js"></script>
+</body>
+</html>
